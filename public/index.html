@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Life Match Christian — Christian Dating, Worldwide</title>
+<style>
+:root{--blue:#1a56a8;--navy:#0c2c54;--light:#eaf2fb;--gold:#f5b942}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#f4f7fc;color:#12233d}
+header{background:var(--navy);color:#fff;padding:22px 16px;text-align:center}
+header h1{margin:0;font-size:28px}header p{margin:6px 0 0;opacity:.9}
+nav{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;background:#fff;padding:10px;position:sticky;top:0;box-shadow:0 1px 6px rgba(0,0,0,.1);z-index:5}
+nav button{border:1px solid var(--blue);background:#fff;color:var(--blue);border-radius:20px;padding:8px 14px;font-weight:700;cursor:pointer}
+nav button.on{background:var(--blue);color:#fff}
+main{max-width:920px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;padding:16px;margin:12px 0;box-shadow:0 2px 10px rgba(12,44,84,.08)}
+input,select,textarea{width:100%;padding:11px;margin:6px 0;border:1px solid #c6d6ea;border-radius:10px;font-size:16px}
+button.cta{background:var(--blue);color:#fff;border:0;border-radius:10px;padding:12px 18px;font-weight:800;cursor:pointer;width:100%;margin-top:8px}
+button.ghost{background:#fff;color:var(--blue);border:1px solid var(--blue);border-radius:10px;padding:9px 12px;font-weight:700;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.profile{border:1px solid #dbe7f5;border-radius:12px;overflow:hidden;background:#fff}
+.profile img{width:100%;height:220px;object-fit:cover;background:var(--light);display:block}
+.profile .body{padding:12px}.badge{display:inline-block;background:var(--light);color:var(--navy);border-radius:20px;padding:4px 10px;font-size:13px;margin:2px}
+.verse{background:var(--light);border-left:4px solid var(--blue);padding:10px;border-radius:8px}
+.chatbox{height:280px;overflow:auto;border:1px solid #dbe7f5;border-radius:10px;padding:10px;background:#fbfdff}
+.msg{max-width:80%;padding:8px 11px;border-radius:12px;margin:6px 0;background:#eaf2fb}
+.msg.me{margin-left:auto;background:#dbeafe;text-align:right}
+.small{color:#5a6b84;font-size:14px}.hidden{display:none}
+video{width:100%;border-radius:12px;background:#000;max-height:320px}
+footer{text-align:center;color:#5a6b84;padding:24px;font-size:14px}
+</style></head><body>
+<header><h1>💙 Life Match Christian</h1><p>Christian singles, worldwide — owned by Prince Bush, Founder &amp; Owner</p>
+<p class="small" style="color:#cfe0f5">“His vision is to equip men and women with the Word of Faith through God's Word, and prepare them for Ministry.” — Bishop Apostle Daniel J.B Scott</p></header>
+<nav>
+<button data-tab="discover" class="on">Discover</button><button data-tab="matches">Matches &amp; Chat</button>
+<button data-tab="join">Join / Sign in</button><button data-tab="owner">Owner Console</button><button data-tab="about">About &amp; Safety</button>
+</nav>
+<main>
+<section id="tab-discover">
+  <div class="card"><h2>Discover</h2><p class="small">Only profiles Prince has approved appear here. Like someone — if they like you back, you match and can chat and call.</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="f-country" placeholder="Country" style="flex:1;min-width:140px"><input id="f-min" type="number" placeholder="Min age" style="width:110px"><input id="f-max" type="number" placeholder="Max age" style="width:110px"><input id="f-search" placeholder="Search name, town, church" style="flex:2;min-width:160px"><button class="ghost" onclick="loadDiscover()">Search</button></div></div>
+  <div id="waiting" class="card hidden"><h3>Waiting for approval 🙏</h3><p>Your profile is with Prince for approval. You will see Discover here once he approves it.</p></div>
+  <div id="profiles" class="grid"></div>
+</section>
+
+<section id="tab-matches" class="hidden">
+  <div class="card"><h2>Your matches</h2><div id="matchList"></div></div>
+  <div class="card hidden" id="chatCard"><h3 id="chatTitle">Chat</h3><div id="typing" class="small"></div>
+  <div class="chatbox" id="chatBox"></div>
+  <div style="display:flex;gap:6px;margin-top:8px"><input id="chatInput" placeholder="Write a message…" style="flex:1"><button class="ghost" onclick="sendMsg()">Send</button></div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+    <button class="ghost" onclick="quickMsg('verse')">📖 Send a verse</button>
+    <button class="ghost" onclick="quickMsg('prayer')">🙏 Send a prayer</button>
+    <button class="ghost" onclick="startCall(false)">📞 Voice call</button>
+    <button class="ghost" onclick="startCall(true)">📹 Video call</button>
+    <button class="ghost" onclick="endCall()">End call</button>
+  </div>
+  <p class="small">KJV verses: “And above all these things put on charity, which is the bond of perfectness.” — Colossians 3:14</p>
+  <video id="remoteVideo" autoplay playsinline></video><video id="localVideo" autoplay playsinline muted></video>
+  </div>
+</section>
+
+<section id="tab-join" class="hidden">
+  <div class="card"><h2>Create your profile</h2><p class="small">Sign up with your email and a PIN. Your profile is saved, but hidden until Prince approves it. You must be 18 or older.</p>
+  <input id="s-email" type="email" placeholder="Email"><input id="s-pin" type="password" placeholder="Choose a PIN (4+ numbers)">
+  <input id="s-name" placeholder="Your name"><input id="s-age" type="number" placeholder="Age">
+  <select id="s-gender"><option value="woman">Woman</option><option value="man">Man</option></select>
+  <select id="s-looking"><option value="man">Looking for a man</option><option value="woman">Looking for a woman</option><option value="everyone">Open to everyone</option></select>
+  <input id="s-country" placeholder="Country"><input id="s-city" placeholder="Town / City"><input id="s-church" placeholder="Your church">
+  <textarea id="s-story" placeholder="Your faith story — who you are, what you believe, what you are looking for"></textarea>
+  <input id="s-photo" placeholder="Picture link (optional — paste an image URL)">
+  <button class="cta" onclick="signup()">Create my profile</button></div>
+  <div class="card"><h2>Sign in</h2><input id="l-email" type="email" placeholder="Email"><input id="l-pin" type="password" placeholder="Your PIN">
+  <button class="cta" onclick="login()">Sign in</button><p id="authMsg" class="small"></p>
+  <button class="ghost" onclick="logout()">Sign out</button></div>
+</section>
+
+<section id="tab-owner" class="hidden">
+  <div class="card"><h2>Owner Console — Prince Bush only</h2><p class="small">Approve profiles first, before they show to others. You can also reject, block, or remove anyone.</p>
+  <input id="owner-pass" type="password" placeholder="Owner passcode"><button class="cta" onclick="ownerLogin()">Open Owner Console</button>
+  <div id="ownerList"></div></div>
+</section>
+
+<section id="tab-about" class="hidden">
+  <div class="card"><h2>About Life Match Christian</h2>
+  <p><b>Owner:</b> Prince Bush, Founder &amp; Owner. <b>Vision:</b> from Bishop Apostle Daniel J.B Scott — equip men and women with the Word of Faith through God's Word, and prepare them for Ministry.</p>
+  <p><b>How it works:</b> 1) Join and make your profile. 2) Prince approves it. 3) Discover, Like, and match when both like each other. 4) Chat and video call your match.</p>
+  <p><b>Safety:</b> No profile shows until Prince approves it. Prince can block or remove anyone. Never send money to someone you have not met. Meet in a safe, public place first, and tell someone you trust.</p>
+  <div class="verse"><b>Mark 16:15 (KJV)</b> — “Go ye into all the world, and preach the gospel to every creature.”</div>
+  <p class="small">Worldwide. First version for Liberia and the world — profiles, chat and video calls.</p></div>
+</section>
+</main>
+<footer>Life Match Christian — owned by Prince Bush, Founder &amp; Owner • Life of Christ Ministries Int. Kingdom Sanctuary, Bristol, PA</footer>
+<script>
+let token=localStorage.getItem('lmc_token')||'', ownerToken='', me=null, currentMatch=null, lastSignal=0, pc=null, localStream=null;
+const api=async(p,o={})=>{const r=await fetch(p,{...o,headers:{'Content-Type':'application/json',Authorization:token?('Bearer '+token):'',...(o.headers||{})}});const d=await r.json();if(!r.ok)throw new Error(d.error||'Something went wrong');return d};
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('on'));b.classList.add('on');['discover','matches','join','owner','about'].forEach(t=>document.getElementById('tab-'+t).classList.toggle('hidden',t!==b.dataset.tab))});
+async function signup(){try{const d=await api('/api/auth/signup',{method:'POST',body:JSON.stringify({email:val('s-email'),pin:val('s-pin'),name:val('s-name'),age:+val('s-age'),gender:val('s-gender'),looking_for:val('s-looking'),country:val('s-country'),city:val('s-city'),church:val('s-church'),faith_story:val('s-story'),photo_url:val('s-photo')})});token=d.token;localStorage.setItem('lmc_token',token);me=d.user;alert(d.message)}catch(e){alert(e.message)}}
+async function login(){try{const d=await api('/api/auth/login',{method:'POST',body:JSON.stringify({email:val('l-email'),pin:val('l-pin')})});token=d.token;localStorage.setItem('lmc_token',token);me=d.user;document.getElementById('authMsg').textContent='Welcome, '+me.name+' — status: '+me.status;loadDiscover();loadMatches()}catch(e){alert(e.message)}}
+function logout(){token='';localStorage.removeItem('lmc_token');me=null;location.reload()}
+const val=id=>document.getElementById(id).value.trim();
+function avatar(p){return p.photo_url||('https://ui-avatars.com/api/?name='+encodeURIComponent(p.name)+'&background=1a56a8&color=fff&size=400')}
+async function loadDiscover(){if(!token)return;try{const d=await api('/api/discover?'+new URLSearchParams({country:val('f-country'),min_age:val('f-min'),max_age:val('f-max'),search:val('f-search')}));document.getElementById('waiting').classList.toggle('hidden',!d.waiting);document.getElementById('profiles').innerHTML=d.profiles.map(p=>`<div class="profile"><img src="${avatar(p)}" alt=""><div class="body"><b>${p.name}, ${p.age}</b><br><span class="small">${p.city}, ${p.country} • ${p.church}</span><p>${p.faith_story||''}</p><button class="ghost" onclick="like(${p.id},true)">💙 Like</button> <button class="ghost" onclick="like(${p.id},false)">Pass</button></div></div>`).join('')||'<p class="small">No profiles yet — check back soon.</p>'}catch(e){}}
+async function like(id,liked){try{const d=await api('/api/like',{method:'POST',body:JSON.stringify({target_id:id,liked})});if(d.matched){alert('💙 It is a match! You can now chat and call.');loadMatches()}else loadDiscover()}catch(e){alert(e.message)}}
+async function loadMatches(){if(!token)return;try{const d=await api('/api/matches');document.getElementById('matchList').innerHTML=d.matches.map(m=>`<p><b>${m.other.name}, ${m.other.age}</b> — ${m.other.city}, ${m.other.country} ${m.unread?`• <b>${m.unread} new</b>`:''} <button class="ghost" onclick="openChat(${m.id},'${m.other.name}')">Open chat</button></p>`).join('')||'<p class="small">No matches yet. Like someone in Discover.</p>'}catch(e){}}
+async function openChat(id,name){currentMatch=id;document.getElementById('chatCard').classList.remove('hidden');document.getElementById('chatTitle').textContent='Chat with '+name;const d=await api('/api/messages/'+id);document.getElementById('chatBox').innerHTML=d.messages.map(m=>`<div class="msg ${m.sender_id===me?.id?'me':''}">${m.body}</div>`).join('');pollChat()}
+async function sendMsg(){const b=val('chatInput');if(!b||!currentMatch)return;await api('/api/messages',{method:'POST',body:JSON.stringify({match_id:currentMatch,body:b,kind:'text'})});document.getElementById('chatInput').value='';openChat(currentMatch,document.getElementById('chatTitle').textContent.replace('Chat with ',''))}
+const VERSES=['“And above all these things put on charity, which is the bond of perfectness.” — Colossians 3:14 (KJV)','“Two are better than one.” — Ecclesiastes 4:9 (KJV)','“Trust in the LORD with all thine heart.” — Proverbs 3:5 (KJV)'];
+async function quickMsg(kind){if(!currentMatch)return;const b=kind==='verse'?VERSES[Math.floor(Math.random()*VERSES.length)]:'🙏 I am praying for you today. May God bless you and guide us both.';await api('/api/messages',{method:'POST',body:JSON.stringify({match_id:currentMatch,body:b,kind})});openChat(currentMatch,document.getElementById('chatTitle').textContent.replace('Chat with ',''))}
+async function pollChat(){if(!currentMatch)return;try{const t=await api('/api/typing/'+currentMatch);document.getElementById('typing').textContent=t.typing?'…typing':'';
+const s=await api('/api/calls/signals/'+currentMatch+'?since='+lastSignal);for(const sig of s.signals){lastSignal=Math.max(lastSignal,sig.id);if(sig.type==='ring')alert('📞 Incoming call from your match! Tap Video call to answer.');if(sig.type==='offer')await handleOffer(sig.payload);if(sig.type==='answer'&&pc)await pc.setRemoteDescription(sig.payload);if(sig.type==='ice'&&pc)await pc.addIceCandidate(sig.payload)}
+setTimeout(pollChat,3000)}catch(e){}}
+async function ownerLogin(){try{const r=await fetch('/api/owner/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({passcode:val('owner-pass')})});const d=await r.json();if(!r.ok)throw new Error(d.error);ownerToken=d.token;const u=await fetch('/api/owner/pending',{headers:{Authorization:'Bearer '+ownerToken}}).then(x=>x.json());document.getElementById('ownerList').innerHTML=u.users.map(x=>`<div class="card"><b>${x.name}, ${x.age}</b> — ${x.email} — ${x.city}, ${x.country} — <b>${x.status}</b><br>${x.faith_story||''}<br><button class="ghost" onclick="setStatus(${x.id},'approved')">Approve</button> <button class="ghost" onclick="setStatus(${x.id},'rejected')">Reject</button> <button class="ghost" onclick="setStatus(${x.id},'blocked')">Block / Remove</button></div>`).join('')}catch(e){alert(e.message)}}
+async function setStatus(id,status){await fetch('/api/owner/set-status',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+ownerToken},body:JSON.stringify({user_id:id,status})});ownerLogin()}
+async function getPc(){if(pc)return pc;pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});localStream=await navigator.mediaDevices.getUserMedia({audio:true,video:true});localStream.getTracks().forEach(t=>pc.addTrack(t,localStream));document.getElementById('localVideo').srcObject=localStream;pc.ontrack=e=>document.getElementById('remoteVideo').srcObject=e.streams[0];pc.onicecandidate=e=>{if(e.candidate&&currentMatch)api('/api/calls/signal',{method:'POST',body:JSON.stringify({match_id:currentMatch,type:'ice',payload:e.candidate})})};return pc}
+async function startCall(video){if(!currentMatch)return alert('Open a match chat first.');const p=await getPc();if(!video)localStream.getVideoTracks().forEach(t=>t.enabled=false);const offer=await p.createOffer();await p.setLocalDescription(offer);await api('/api/calls/signal',{method:'POST',body:JSON.stringify({match_id:currentMatch,type:'offer',payload:offer})});await api('/api/calls/signal',{method:'POST',body:JSON.stringify({match_id:currentMatch,type:'ring',payload:{video}})});alert('Calling… the other person will see the call when they open the chat.')}
+async function handleOffer(offer){const p=await getPc();await p.setRemoteDescription(offer);const a=await p.createAnswer();await p.setLocalDescription(a);await api('/api/calls/signal',{method:'POST',body:JSON.stringify({match_id:currentMatch,type:'answer',payload:a})})}
+async function endCall(){if(pc){pc.close();pc=null}if(localStream){localStream.getTracks().forEach(t=>t.stop());localStream=null}if(currentMatch)api('/api/calls/signal',{method:'POST',body:JSON.stringify({match_id:currentMatch,type:'end',payload:{}})}).catch(()=>{})}
+document.getElementById('chatInput')?.addEventListener('input',e=>{if(currentMatch)api('/api/typing',{method:'POST',body:JSON.stringify({match_id:currentMatch,is_typing:!!e.target.value})}).catch(()=>{})});
+if(token){api('/api/me').then(d=>{me=d.user;loadDiscover();loadMatches()}).catch(()=>{})}
+</script></body></html>
