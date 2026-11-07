@@ -1,0 +1,29 @@
+# Life Match Christian — Render Blueprint
+# Deploy with: Render Dashboard > New > Blueprint > connect this repo
+# Or create the two services manually (see README.md).
+# Cost: Web Service Starter $7/mo + Postgres Basic $6/mo = about $13/mo.
+
+services:
+  - type: web
+    name: life-match-christian
+    env: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: life-match-christian-db
+          property: connectionString
+      - key: OWNER_PASSCODE
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+
+databases:
+  - name: life-match-christian-db
+    plan: basic
+    databaseName: lifematch
+    user: lifematch

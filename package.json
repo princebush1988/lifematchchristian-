@@ -1,0 +1,1 @@
+{"dependencies":{"express":"^4.19.2","pg":"^8.12.0"},"description":"Life Match Christian — real Christian dating app owned by Prince Bush, Founder & Owner. Node + Postgres, Render-ready.","engines":{"node":">=18"},"license":"UNLICENSED","main":"server.js","name":"life-match-christian","private":true,"scripts":{"dev":"node server.js","start":"node server.js"},"version":"1.0.0"}
