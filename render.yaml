@@ -24,6 +24,6 @@ services:
 
 databases:
   - name: life-match-christian-db
-    plan: basic
+    plan: basic-256mb
     databaseName: lifematch
     user: lifematch
