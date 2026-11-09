@@ -26,17 +26,17 @@ button.ghost{background:#fff;color:var(--blue);border:1px solid var(--blue);bord
 video{width:100%;border-radius:12px;background:#000;max-height:320px}
 footer{text-align:center;color:#5a6b84;padding:24px;font-size:14px}
 </style></head><body>
-<header><h1>💙 Life Match Christian</h1><p>Christian singles, worldwide — owned by Prince Bush, Founder &amp; Owner</p>
-<p class="small" style="color:#cfe0f5">“His vision is to equip men and women with the Word of Faith through God's Word, and prepare them for Ministry.” — Bishop Apostle Daniel J.B Scott</p></header>
+<header><h1>💙 Life Match Christian</h1><p>Christian singles, worldwide</p>
+<p class="small" style="color:#cfe0f5">“His vision is to equip men and women with the Word of Faith through God's Word, and prepare them for Ministry.”</p></header>
 <nav>
 <button data-tab="discover" class="on">Discover</button><button data-tab="matches">Matches &amp; Chat</button>
 <button data-tab="join">Join / Sign in</button><button data-tab="owner">Owner Console</button><button data-tab="about">About &amp; Safety</button>
 </nav>
 <main>
 <section id="tab-discover">
-  <div class="card"><h2>Discover</h2><p class="small">Only profiles Prince has approved appear here. Like someone — if they like you back, you match and can chat and call.</p>
+  <div class="card"><h2>Discover</h2><p class="small">Only profiles the owner has approved appear here. Like someone — if they like you back, you match and can chat and call.</p>
   <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="f-country" placeholder="Country" style="flex:1;min-width:140px"><input id="f-min" type="number" placeholder="Min age" style="width:110px"><input id="f-max" type="number" placeholder="Max age" style="width:110px"><input id="f-search" placeholder="Search name, town, church" style="flex:2;min-width:160px"><button class="ghost" onclick="loadDiscover()">Search</button></div></div>
-  <div id="waiting" class="card hidden"><h3>Waiting for approval 🙏</h3><p>Your profile is with Prince for approval. You will see Discover here once he approves it.</p></div>
+  <div id="waiting" class="card hidden"><h3>Waiting for approval 🙏</h3><p>Your profile is with the owner for approval. You will see Discover here once it is approved.</p></div>
   <div id="profiles" class="grid"></div>
 </section>
 
@@ -58,7 +58,7 @@ footer{text-align:center;color:#5a6b84;padding:24px;font-size:14px}
 </section>
 
 <section id="tab-join" class="hidden">
-  <div class="card"><h2>Create your profile</h2><p class="small">Sign up with your email and a PIN. Your profile is saved, but hidden until Prince approves it. You must be 18 or older.</p>
+  <div class="card"><h2>Create your profile</h2><p class="small">Sign up with your email and a PIN. Your profile is saved, but hidden until the owner approves it. You must be 18 or older.</p>
   <input id="s-email" type="email" placeholder="Email"><input id="s-pin" type="password" placeholder="Choose a PIN (4+ numbers)">
   <input id="s-name" placeholder="Your name"><input id="s-age" type="number" placeholder="Age">
   <select id="s-gender"><option value="woman">Woman</option><option value="man">Man</option></select>
@@ -73,21 +73,21 @@ footer{text-align:center;color:#5a6b84;padding:24px;font-size:14px}
 </section>
 
 <section id="tab-owner" class="hidden">
-  <div class="card"><h2>Owner Console — Prince Bush only</h2><p class="small">Approve profiles first, before they show to others. You can also reject, block, or remove anyone.</p>
+  <div class="card"><h2>Owner Console</h2><p class="small">Approve profiles first, before they show to others. You can also reject, block, or remove anyone.</p>
   <input id="owner-pass" type="password" placeholder="Owner passcode"><button class="cta" onclick="ownerLogin()">Open Owner Console</button>
   <div id="ownerList"></div></div>
 </section>
 
 <section id="tab-about" class="hidden">
   <div class="card"><h2>About Life Match Christian</h2>
-  <p><b>Owner:</b> Prince Bush, Founder &amp; Owner. <b>Vision:</b> from Bishop Apostle Daniel J.B Scott — equip men and women with the Word of Faith through God's Word, and prepare them for Ministry.</p>
-  <p><b>How it works:</b> 1) Join and make your profile. 2) Prince approves it. 3) Discover, Like, and match when both like each other. 4) Chat and video call your match.</p>
-  <p><b>Safety:</b> No profile shows until Prince approves it. Prince can block or remove anyone. Never send money to someone you have not met. Meet in a safe, public place first, and tell someone you trust.</p>
+  <p><b>Vision:</b> equip men and women with the Word of Faith through God's Word, and prepare them for Ministry.</p>
+  <p><b>How it works:</b> 1) Join and make your profile. 2) The owner approves it. 3) Discover, Like, and match when both like each other. 4) Chat and video call your match.</p>
+  <p><b>Safety:</b> No profile shows until the owner approves it. The owner can block or remove anyone. Never send money to someone you have not met. Meet in a safe, public place first, and tell someone you trust.</p>
   <div class="verse"><b>Mark 16:15 (KJV)</b> — “Go ye into all the world, and preach the gospel to every creature.”</div>
   <p class="small">Worldwide. First version for Liberia and the world — profiles, chat and video calls.</p></div>
 </section>
 </main>
-<footer>Life Match Christian — owned by Prince Bush, Founder &amp; Owner • Life of Christ Ministries Int. Kingdom Sanctuary, Bristol, PA</footer>
+<footer>Life Match Christian • Life of Christ Ministries Int. Kingdom Sanctuary, Bristol, PA</footer>
 <script>
 let token=localStorage.getItem('lmc_token')||'', ownerToken='', me=null, currentMatch=null, lastSignal=0, pc=null, localStream=null;
 const api=async(p,o={})=>{const r=await fetch(p,{...o,headers:{'Content-Type':'application/json',Authorization:token?('Bearer '+token):'',...(o.headers||{})}});const d=await r.json();if(!r.ok)throw new Error(d.error||'Something went wrong');return d};
